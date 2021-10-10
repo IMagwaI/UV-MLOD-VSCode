@@ -7,31 +7,24 @@ bool estConvexe(bool tab[], int length)
     for(int i =0;i<length;i++){
         if (tab[i] != tab[i+1]){
             nbrChange++;
-            return nbrChange<=2;
-        }
-    }
-}
-/* 
-bool estConvexe(bool tab[], int length)
-{
-    for (int i = 0; i < length; i++)
-    {
-        if (tab[i] != tab[i + 1])
-        {
-            if (i == 0 && tab[0] == tab[-1])
-            {
-                continue;
+            if(nbrChange>=2){
+                printf("non convexe\n");
+                return false;
             }
-            printf("no c");
-            return false;
+        }else{
+            nbrChange=0;
         }
     }
-    printf("ye");
+    printf("convexe\n");
     return true;
-} */
+}
+
 int main(void)
 {
     bool T1[5] = {false, true, true, false, false};
+    bool T2[5] = {false, true, true, false, true};
+
     estConvexe(T1, 5);
+    estConvexe(T2, 5);
     return 0;
 }
