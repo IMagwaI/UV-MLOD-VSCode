@@ -1,9 +1,11 @@
 #include <stdio.h>
 
-void parfait(int p)
+void parfait()
 {
     int sum = 0;
-   /*  double divi[100]; */
+    int p;
+    printf("Saissir un nombre pour vérifier s'il est parfait : ");
+    scanf("%d", &p);
     for (int i = 1; i < p; i++)
     {
         if (p % i == 0)
@@ -23,6 +25,6 @@ void parfait(int p)
 }
 int main(void)
 {
-    parfait(28);
+    parfait();
     return 0;
 }
