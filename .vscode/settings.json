@@ -2,5 +2,6 @@
     "files.associations": {
         "stdio.h": "c",
         "ex1": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

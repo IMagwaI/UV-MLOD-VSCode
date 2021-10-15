@@ -75,12 +75,12 @@ void afficheDate(Date *d)
 void initialiseDate(Date *d)
 {
 
-    printf("Saissir jour: ");
+    printf("Saisir jour: ");
     scanf("%i", &d->jour);
     // d -> equiv  (*d).jour
-    printf("Saissir mois: ");
+    printf("Saisir mois: ");
     scanf("%i", (int *)&d->mois);
-    printf("Saissir année: ");
+    printf("Saisir année: ");
     scanf("%i", &d->annee);
 }
 int main(void)

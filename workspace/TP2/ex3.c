@@ -31,6 +31,23 @@ void mult_matrice(int64_t matriceResultat[5][5], int64_t matrice1[5][5], int64_t
     afficherResultat(matriceResultat);
 }
 
+
+void mult_matrice(int64_t matriceResultat[][], int64_t matrice1[][], int64_t matrice2[][])
+{
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            matriceResultat[i][j] = 0;
+            for (int k = 0; k < 5; k++)
+            {
+                matriceResultat[i][j] += matrice1[i][k] * matrice2[k][j];
+            }
+        }
+    }
+    afficherResultat(matriceResultat);
+}
+
 int main(void)
 {
     //matrices en ligne * colonne
