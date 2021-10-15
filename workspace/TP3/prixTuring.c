@@ -95,15 +95,15 @@ int main(void)
 {
     // print the number of winners
     int nbGagnants = scanLineAsInt();
-    // printf("%d \n", nbGagnants);
+    printf("%d \n", nbGagnants);
 
     // array of winners
     struct Winner winners[50];
 
     readWinners(nbGagnants, winners);
-    // printWinners(nbGagnants, winners);
+    printWinners(nbGagnants, winners);
 
-    infosAnnee(2003, winners);
+    // infosAnnee(2003, winners);
 
     return EXIT_SUCCESS;
 }
