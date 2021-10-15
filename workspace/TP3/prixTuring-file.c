@@ -76,17 +76,8 @@ void infosAnnee(int annee, struct Winner winners[])
 
 int main(void)
 {
-    // print the number of winners
-    int nbGagnants = scanLineAsInt();
-    printf("%d \n", nbGagnants);
+    f = *FILE
 
-    // array of winners
-    struct Winner winners[50];
-
-    readWinners(nbGagnants, winners);
-    printWinners(nbGagnants, winners);
-
-    // infosAnnee(2003, winners);
 
     return EXIT_SUCCESS;
 }
