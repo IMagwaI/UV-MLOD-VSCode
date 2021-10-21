@@ -22,8 +22,10 @@ struct Date
     enum Mois mois;
     int annee;
 };
+
 typedef enum Mois Mois;
 typedef struct Date Date;
+
 void afficheDate(Date *d)
 {
     char *Mois;
@@ -74,7 +76,7 @@ void afficheDate(Date *d)
 
 void initialiseDate(Date *d)
 {
-
+    
     printf("Saisir jour: ");
     scanf("%i", &d->jour);
     // d -> equiv  (*d).jour

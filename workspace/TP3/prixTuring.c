@@ -11,6 +11,7 @@
  Détection de fuites mémoires
  valgrind --leak-check=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./prixTuring < turingWinners.txt > out.txt
 **/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,12 +19,24 @@
 
 /* This function scans a line of text (until \n) and returns a char* that contains all characters on the line (up to 255) excluding \n.
 It also ensures the \0 termination.
-*WARNING*: The result of this function has been allocated (calloc) by the function */
+**WARNING**: The result of this function has been allocated (calloc) by the function */
+
+struct Winners
+{
+
+    int annee;
+    char *nom;
+    char *commentaire;
+};
+
+typedef struct Winners Winners;
 char *scanLine()
 {
     int maxLineSize = 255;
     char c, *line = calloc(maxLineSize + 1, sizeof(char));
+
     scanf("%250[^\n]", line);
+
     if ((c = getchar()) != '\n')
     {
         /* we did not get all the line */
@@ -31,10 +44,12 @@ char *scanLine()
         line[251] = line[252] = line[253] = '.';
         line[254] = ']';
         // line[255] = '\0'; // useless because already initialized by calloc
+
         // let's skip all chars untli the end of line
         while (((c = getchar()) != '\n') && c != EOF)
             ;
     }
+
     return line;
 }
 
@@ -45,63 +60,46 @@ int scanLineAsInt()
     scanf("%i\n", &buf);
     return buf;
 }
-
-struct Winner
+void readWinners(int nbrGagnants, Winners winners[])
 {
-    int year;
-    char *name;
-    char *description;
-};
-
-typedef struct Winner Winner; 
-
-void readWinners(int nbGagnants, struct Winner winners[])
-{
-    for (int i = 0; i < nbGagnants; i++)
+    for (int i = 0; i < nbrGagnants; i++)
     {
-        int year = scanLineAsInt();
-        // printf("%d \n", year);
-        winners[i].year = year;
-        char *name = scanLine();
-        // printf("%s \n", name);
-        winners[i].name = name;
-        char *description = scanLine();
-        // printf("%s \n", description);
-        winners[i].description = description;
+        winners[i].annee = scanLineAsInt();
+        winners[i].nom = scanLine();
+        winners[i].commentaire = scanLine();
     }
 }
 
-void printWinners(int nbGagnants, struct Winner winners[])
+void printWinners(int nbrGagnants, Winners winners[])
 {
-    for (int i = 0; i < nbGagnants; i++)
+    for (int i = 0; i < nbrGagnants; i++)
     {
-        printf("%d \n", winners[i].year);
-        printf("%s \n", winners[i].name);
-        printf("%s \n", winners[i].description);
+        printf("%d\n", winners[i].annee);
+        printf("%s\n", winners[i].nom);
+        printf("%s\n", winners[i].commentaire);
     }
 }
 
-void infosAnnee(int annee, struct Winner winners[])
+void infoAnnee(int nbGagnants, Winners winners[], int anneeR)
 {
-    for (int i = 0; i < 50; i++)
+    for (int i = 0; i < nbGagnants; i++)
     {
-        if (winners[i].year == annee)
+        if (winners[i].annee == anneeR)
         {
-            printf("L'année %d, le(s) gagnant(s) ont été : %s \nNature des travaux : %s \n", winners[i].year, winners[i].name, winners[i].description);
-            return;
+            printf("%d\n", winners[i].annee);
+            printf("%s\n", winners[i].nom);
+            printf("%s\n", winners[i].commentaire);
         }
     }
 }
-
 int main(void)
 {
-    // print the number of winners
+
     int nbGagnants = scanLineAsInt();
-    printf("%d \n", nbGagnants);
-    // array of winners
-    Winner winners[nbGagnants];
+    printf("%i\n", nbGagnants);
+    Winners winners[nbGagnants];
     readWinners(nbGagnants, winners);
     printWinners(nbGagnants, winners);
-    // infosAnnee(2003, winners);
+    /*      infoAnnee(nbGagnants, winners, 2003); */
     return EXIT_SUCCESS;
 }
