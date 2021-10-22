@@ -224,6 +224,14 @@ Liste retirePremier_i(Element v, Liste l)
 	Liste precedent, p;
 	if (estVide(l))
 		return l;
+	if(equalsElement(l->val,v)){
+		p= l->suiv;
+		l->suiv=NULL;
+		detruire_r(l);
+		return p;
+	}
+	precedent=l;
+	p= l->suiv;
 
 	while (!estVide(p) && !equalsElement(p->val, v))
 	{
@@ -231,6 +239,7 @@ Liste retirePremier_i(Element v, Liste l)
 		p = p->suiv;
 	}
 	if (!estVide(p))
+	// v trouvé
 	{
 		precedent->suiv = p->suiv;
 		p->suiv = NULL;
