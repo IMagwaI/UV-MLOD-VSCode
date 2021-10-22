@@ -249,23 +249,26 @@ Liste retirePremier_i(Element v, Liste l)
 }
 
 // version recursive
-Liste retirePremier_r(Element v, Liste l)
-{
-    if (estVide(l)) {
-        return l;
-    }
+Liste retirePremier_r(Element v, Liste l) {
+	if(estVide(l))
+		return l;
 
-    if (equalsElement(l->val,v)) {
-        Liste p = l;
-        l->suiv = NULL;
-        detruire_r(l);
-        return p;
-    }
-    l->suiv = retirePremier_r(v, l->suiv);
-    return l;
+	if(equalsElement(l->val,v)) {
+		Liste p = l->suiv;
+		l->suiv = NULL;
+		detruire_r(l);
+		return p;
+	}
+
+	l->suiv = retirePremier_r(v,l->suiv);
+	return l;
 }
 
-void afficheEnvers_r(Liste l)
-{
-	TODO;
+void afficheEnvers_r(Liste l) {
+	if(!estVide(l)) {
+		if(!estVide(l->suiv))
+			afficheEnvers_r(l->suiv);
+		afficheElement(l->val);
+		printf(" ");
+	}
 }
