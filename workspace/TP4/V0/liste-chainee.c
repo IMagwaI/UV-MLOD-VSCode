@@ -61,28 +61,51 @@ void afficheListe_r(Liste l)
 
 void detruireElement(Element e)
 {
-	Liste l;
+	/* Liste l; */
 }
 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l)
 {
-	Liste aSupprimer;
-	if (!estVide(l))
+	Liste p;
+	while (!estVide(l))
 	{
-		while (l->suiv != NULL)
+		p = l;
+		l = l->suiv;
+		detruireElement(p->val);
+		free(p);
+	}
+
+	/* 
+
+
+	Liste aSupprimer = l;
+	if (!estVide(aSupprimer))
+	{
+		while (!estVide(l->suiv))
 		{
 			aSupprimer->suiv = l;
 			l->suiv = l->suiv->suiv;
 			free(aSupprimer);
 		}
 	}
+	*/
 }
 
 // version récursive
 void detruire_r(Liste l)
 {
+	if (!estVide(l))
+	{
+		detruire_r(l->suiv);
+		detruireElement(l->val);
+		free(l);
+	}
+
+	/*
+	
+
 	Liste aSupprimer;
 	if (!estVide(l) && l->suiv != NULL)
 	{
@@ -90,36 +113,56 @@ void detruire_r(Liste l)
 		free(aSupprimer);
 		detruire_r(l->suiv);
 	}
+
+	 */
 }
 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l)
 {
-	Liste nouveauElement;
-	nouveauElement->val = v;
-	nouveauElement->suiv = NULL;
-	while (l->suiv != NULL)
+	Liste m = l;
+	if (!estVide(m))
 	{
-		l->suiv = l->suiv->suiv;
-		if (l->suiv == NULL)
+		while (!estVide(m->suiv))
 		{
-			l->suiv = nouveauElement;
+			m = m->suiv;
 		}
+		m->suiv = creer(v);
 	}
+	else
+	{
+		l = creer(v);
+	}
+	return l;
 }
 
 // version recursive
 Liste ajoutFin_r(Element v, Liste l)
 {
-	Liste nouveauElement;
-	nouveauElement->val = v;
-	nouveauElement->suiv = NULL;
-	if (l->suiv != NULL)
+
+	if (estVide(l))
+	{
+		return creer(v);
+	}
+	else
+	{
+		l->suiv = ajoutFin_r(v, l->suiv);
+	}
+	return l;
+	/* 
+	me
+Liste nouveauElement = creer(v);
+	if (!estVide(l->suiv))
 	{
 		ajoutFin_r(v, l->suiv);
-		(l->suiv == NULL) ? l->suiv = nouveauElement : ajoutFin_r(v, l->suiv);
+		(estVide(l->suiv)) ? l->suiv = nouveauElement : ajoutFin_r(v, l->suiv);
 	}
+	
+
+
+	
+	*/
 }
 
 // compare deux elements
@@ -132,7 +175,15 @@ bool equalsElement(Element e1, Element e2)
 // version itérative
 Liste cherche_i(Element v, Liste l)
 {
-	Liste cellulePrecedente;
+	while (!estVide(l) && !equalsElement(v, l->val))
+	{
+		l = l->suiv;
+	}
+	return l;
+	/* 
+	me
+
+Liste cellulePrecedente;
 	if (l->val == v)
 	{
 		return l;
@@ -145,11 +196,24 @@ Liste cherche_i(Element v, Liste l)
 		}
 		l->suiv = l->suiv->suiv;
 	}
+	*/
 }
 
 // version récursive
 Liste cherche_r(Element v, Liste l)
 {
+	if (estVide(l))
+	{
+		return l;
+	}
+	if (l->val == v)
+	{
+		return l;
+	}
+	else
+	{
+		cherche_r(v, l->suiv);
+	}
 }
 
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé
@@ -157,13 +221,39 @@ Liste cherche_r(Element v, Liste l)
 // version itérative
 Liste retirePremier_i(Element v, Liste l)
 {
-	return TODO;
+	Liste precedent, p;
+	if (estVide(l))
+		return l;
+
+	while (!estVide(p) && !equalsElement(p->val, v))
+	{
+		precedent = p;
+		p = p->suiv;
+	}
+	if (!estVide(p))
+	{
+		precedent->suiv = p->suiv;
+		p->suiv = NULL;
+		detruire_r(p);
+	}
+	return l;
 }
 
 // version recursive
 Liste retirePremier_r(Element v, Liste l)
 {
-	return TODO;
+    if (estVide(l)) {
+        return l;
+    }
+
+    if (equalsElement(l->val,v)) {
+        Liste p = l;
+        l->suiv = NULL;
+        detruire_r(l);
+        return p;
+    }
+    l->suiv = retirePremier_r(v, l->suiv);
+    return l;
 }
 
 void afficheEnvers_r(Liste l)
