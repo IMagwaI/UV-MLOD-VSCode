@@ -2,7 +2,8 @@
     "files.associations": {
         "stdio.h": "c",
         "ex1": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "stdlib.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

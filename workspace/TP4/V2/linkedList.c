@@ -176,7 +176,6 @@ void afficheEnvers_r(Liste l) {
 		if(!estVide(l->suiv))
 			afficheEnvers_r(l->suiv);
 		afficheElement(l->val);
-		printf(" ");
 	}
 }
 

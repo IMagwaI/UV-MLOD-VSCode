@@ -1,7 +1,3 @@
-// gcc -W -Wall -std=c99 linkedList.c linkedListOfString.c -o linkedListOfString
-
-// valgrind --leak-check=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./linkedListOfString
-
 #include "linkedListOfMusic.h"
 #include "linkedList.h"
 #include <stdlib.h>
@@ -12,19 +8,20 @@
 // Definitions of external functions
 // ============
 
+
 // Affichage de chaque variables d'un element Music*
 
 void afficheElement(Element e)
 {
     Music *uneMusic;
     uneMusic = (Music *)e;
-    printf("%s ", uneMusic->Name);
-    printf("%s ", uneMusic->Artist);
-    printf("%s ", uneMusic->Album);
-    printf("%s ", uneMusic->Genre);
-    printf("%s ", uneMusic->NumberDisc);
-    printf("%s ", uneMusic->NumberTrack);
-    printf("%s ", uneMusic->Year);
+    printf("%s,", uneMusic->Name);
+    printf("%s,", uneMusic->Artist);
+    printf("%s,", uneMusic->Album);
+    printf("%s,", uneMusic->Genre);
+    printf("%s,", uneMusic->NumberDisc);
+    printf("%s,", uneMusic->NumberTrack);
+    printf("%s", uneMusic->Year);
 }
 
 // supprimer un element Music
@@ -48,7 +45,11 @@ bool equalsElement(Element e1, Element e2)
 // Functions implementation
 // ============
 
+
+// lecture de chaque element de ligne en arrivant au séparateur
+
 Liste readMusic(char* line,Liste liste){
+
     Music *music=malloc(sizeof(Music));
     music->Name=strsep(&line, ",");
     music->Artist=strsep(&line, ",");
@@ -58,5 +59,4 @@ Liste readMusic(char* line,Liste liste){
     music->NumberTrack=strsep(&line, ",");
     music->Year=strsep(&line, ",");
     return ajoutTete(music,liste);
-    //printf("%s\n",((Music*)l->val)->name);
 }
