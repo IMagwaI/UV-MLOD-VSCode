@@ -18,4 +18,9 @@ typedef struct
 
 //les fonctions nécessaires pour manipuler des listes de Music
 
-Liste readMusic(char *uneMusic, Liste liste);
+//afin de lire chaque attribut d'une musique obtenue dans une ligne apres fgets et l'ajouté au tableau des musiques
+Liste readInfoMusic(char *uneMusic, Liste liste);
+
+// trier les musiques par l'attribut Year
+Liste trierParAnnee(Liste l);
+

@@ -8,7 +8,6 @@
 // Definitions of external functions
 // ============
 
-
 // Affichage de chaque variables d'un element Music*
 
 void afficheElement(Element e)
@@ -45,18 +44,39 @@ bool equalsElement(Element e1, Element e2)
 // Functions implementation
 // ============
 
-
 // lecture de chaque element de ligne en arrivant au séparateur
 
-Liste readMusic(char* line,Liste liste){
+Liste readInfoMusic(char *line, Liste liste)
+{
+    Music *music = malloc(sizeof(Music));
+    /* 
+    music->Name=strok(line, ",");
+    while(strsep(&line,"," != NULL)){
+    } */
+    music->Name = strsep(&line, ",");
+    music->Artist = strsep(&line, ",");
+    music->Album = strsep(&line, ",");
+    music->Genre = strsep(&line, ",");
+    music->NumberDisc = strsep(&line, ",");
+    music->NumberTrack = strsep(&line, ",");
+    music->Year = strsep(&line, ",");
+    return ajoutTete(music, liste);
+}
 
-    Music *music=malloc(sizeof(Music));
-    music->Name=strsep(&line, ",");
-    music->Artist=strsep(&line, ",");
-    music->Album=strsep(&line, ",");
-    music->Genre=strsep(&line, ",");
-    music->NumberDisc=strsep(&line, ",");
-    music->NumberTrack=strsep(&line, ",");
-    music->Year=strsep(&line, ",");
-    return ajoutTete(music,liste);
+Liste trierParAnnee(Liste l)
+{
+    Liste p = l;
+    Liste temp;
+    while (!estVide(p) && !estVide(p->suiv))
+    {
+        while (((Music *)p->val)->Year > ((Music *)p->suiv->val)->Year)
+        {
+            temp = p->val;
+            (p->val) = (p->suiv->val);
+            (p->suiv->val) = temp;
+            p = p->suiv;
+        }
+    }
+    return l;
+   
 }

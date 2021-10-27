@@ -16,20 +16,20 @@ void lectureFichierMusics()
 
 	if (fichier != NULL)
 	{
-		char buffer[TAILLE_MAX];
+		char readLine[TAILLE_MAX];
 		Liste listeMusic = NULL;
-		while (fgets(buffer, TAILLE_MAX, fichier))
+		while (fgets(readLine, TAILLE_MAX, fichier))
 		{
-			/* puts(buffer);*/
-			char *line = strdup(buffer); //strdup utilise malloc implicite, pourquoi meme si je ne fais pas de free il y'a pas de fuite ?
-			listeMusic = readMusic(line, listeMusic);
+			/* puts(readLine);*/
+			char *line = strdup(readLine); //strdup utilise malloc implicite, pourquoi meme si je ne fais pas de free il y'a pas de fuite ?
+			listeMusic = readInfoMusic(line, listeMusic);
 		}
-		//afficheListe_i(listeMusic);   
-		afficheEnvers_r(listeMusic);
+		//afficheListe_i(listeMusic);
+		//afficheEnvers_r(listeMusic);
 
+		afficheEnvers_r(trierParAnnee(listeMusic));
 		detruire_r(listeMusic);
 		fclose(fichier);
-
 	}
 	else
 	{
