@@ -1,7 +1,7 @@
 //  pour compiler :   gcc -W -Wall -std=c99 -D_GNU_SOURCE linkedList.c linkedListOfMusic.c mySpitofy.c   -o mySpitofy
 //  pour executer : ./mySpitofy > music.txt
 //  -D_GNU_SOURCE:  probleme de compilation  avec la fonction strdup    " warning: implicit declaration of function ‘strdup’; did you mean ‘strcmp’?" vu strdup n'est pas une fonction standard
-//	valgrind --leak-check=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./mySpitofy       * contient de fuite , pas pu les réperés*
+//	valgrind --leak-check=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./mySpitofy       * contient de fuite de la fonction readInfoMusic*
 
 #include "linkedList.h"
 #include <stdlib.h>
