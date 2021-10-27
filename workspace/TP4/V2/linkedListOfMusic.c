@@ -63,10 +63,12 @@ Liste readInfoMusic(char *line, Liste liste)
     return ajoutTete(music, liste);
 }
 
-Liste trierParAnnee(Liste l)
+/*
+marche pas !
+ Liste trierParAnnee(Liste l)
 {
     Liste p = l;
-    Liste temp;
+    Liste *temp;
     while (!estVide(p) && !estVide(p->suiv))
     {
         while (((Music *)p->val)->Year > ((Music *)p->suiv->val)->Year)
@@ -78,5 +80,32 @@ Liste trierParAnnee(Liste l)
         }
     }
     return l;
-   
+
+} */
+
+Liste trierParAnnee(Liste l)  
+// bizarrement quelques element au milieu  ne sont pas trié correctement d'autres non vers la ligne suivante :  Dead Joe,The Birthday Party,Junkyard,Alternative,,3,1982
+ 
+{
+    Liste temp = NULL;
+    Liste element=NULL; 
+    Liste tempvar;
+    element=l;
+    while(element != NULL)   
+    {
+        temp=element; 
+        while (temp->suiv !=NULL) // boucle de passage sur tout les elements
+        {
+           if(atoi((((Music *)temp->val)->Year)) > atoi(((Music *)temp->suiv->val)->Year )) // ici l'attribut Year est un char* j'ai besoin donc de la convertir pour que la comparaison soit juste, j'ai définie le tout comme char* pour ne pas se débrouiller avec strsep à la lecture x)
+            {
+              tempvar = temp->val;
+              temp->val = temp->suiv->val;
+              temp->suiv->val = tempvar;
+            }
+         temp = temp->suiv;    // on passe à l element suivant
+        }
+        element = element->suiv;    
+    }
+    return l;
+
 }

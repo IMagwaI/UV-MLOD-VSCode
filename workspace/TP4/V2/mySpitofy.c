@@ -1,3 +1,7 @@
+//  pour compiler :   gcc -W -Wall -std=c99 -D_GNU_SOURCE linkedList.c linkedListOfMusic.c mySpitofy.c   -o mySpitofy
+//  pour executer : ./mySpitofy > music.txt
+//  -D_GNU_SOURCE:  probleme de compilation  avec la fonction strdup    " warning: implicit declaration of function ‘strdup’; did you mean ‘strcmp’?" vu strdup n'est pas une fonction standard
+//	valgrind --leak-check=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./mySpitofy       * contient de fuite , pas pu les réperés*
 
 #include "linkedList.h"
 #include <stdlib.h>
@@ -5,14 +9,13 @@
 #include <string.h>
 #include "linkedListOfMusic.h"
 #define TAILLE_MAX 1000
-//  -D_GNU_SOURCE:  probleme de compilation  avec la fonction strdup    " warning: implicit declaration of function ‘strdup’; did you mean ‘strcmp’?" j'ai du prendre la définition
 
-void lectureFichierMusics()
+int main(void)
 {
 	char fichierListMusic[] = "music.csv";
-	// Initialisation du pointeur.
 	FILE *fichier = NULL;
 	fichier = fopen(fichierListMusic, "r");
+	char *line = NULL;
 
 	if (fichier != NULL)
 	{
@@ -21,13 +24,14 @@ void lectureFichierMusics()
 		while (fgets(readLine, TAILLE_MAX, fichier))
 		{
 			/* puts(readLine);*/
-			char *line = strdup(readLine); //strdup utilise malloc implicite, pourquoi meme si je ne fais pas de free il y'a pas de fuite ?
+			line = strdup(readLine); //strdup utilise malloc implicite
 			listeMusic = readInfoMusic(line, listeMusic);
 		}
 		//afficheListe_i(listeMusic);
 		//afficheEnvers_r(listeMusic);
 
 		afficheEnvers_r(trierParAnnee(listeMusic));
+		free(line);
 		detruire_r(listeMusic);
 		fclose(fichier);
 	}
@@ -35,11 +39,5 @@ void lectureFichierMusics()
 	{
 		printf("Impossible d'ouvrir le fichier music.csv");
 	}
-}
-
-int main(void)
-{
-	lectureFichierMusics();
-
 	return EXIT_SUCCESS;
 }
